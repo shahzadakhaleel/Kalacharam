@@ -4,6 +4,12 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_profile" {
+  description = "AWS CLI profile used by Terraform"
+  type        = string
+  default     = "kalacharamdeveloper"
+}
+
 variable "site_domain" {
   description = "Optional custom domain name for the CloudFront distribution"
   type        = string

@@ -4,7 +4,6 @@ resource "random_id" "bucket_id" {
 
 resource "aws_s3_bucket" "website" {
   bucket = "kalacharam-events-${random_id.bucket_id.hex}"
-  acl    = "public-read"
 
   website {
     index_document = "index.html"
@@ -28,6 +27,9 @@ resource "aws_s3_bucket_public_access_block" "website" {
 resource "aws_s3_bucket_policy" "public_read" {
   bucket = aws_s3_bucket.website.id
 
+    # This forces Terraform to turn off the block BEFORE trying to attach the policy
+  depends_on = [aws_s3_bucket_public_access_block.website]
+  
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -63,10 +65,13 @@ resource "aws_acm_certificate" "website" {
 resource "aws_route53_record" "cert_validation" {
   count = local.use_custom_domain ? 1 : 0
 
+  # domain_validation_options is a set; use one() instead of index access.
+  # This supports current AWS provider behavior and avoids Invalid index errors.
+  # For this setup, we request exactly one certificate domain.
   zone_id = data.aws_route53_zone.selected[0].zone_id
-  name    = aws_acm_certificate.website[0].domain_validation_options[0].resource_record_name
-  type    = aws_acm_certificate.website[0].domain_validation_options[0].resource_record_type
-  records = [aws_acm_certificate.website[0].domain_validation_options[0].resource_record_value]
+  name    = one(aws_acm_certificate.website[0].domain_validation_options).resource_record_name
+  type    = one(aws_acm_certificate.website[0].domain_validation_options).resource_record_type
+  records = [one(aws_acm_certificate.website[0].domain_validation_options).resource_record_value]
   ttl     = 300
 }
 
