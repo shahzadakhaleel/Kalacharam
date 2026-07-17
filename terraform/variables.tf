@@ -21,3 +21,15 @@ variable "route53_zone_id" {
   type        = string
   default     = null
 }
+
+variable "ses_sender_email" {
+  description = "Verified SES sender email address"
+  type        = string
+  default     = "kalacharamevents@gmail.com"
+}
+
+variable "ses_recipient_email" {
+  description = "Recipient email address for contact form submissions"
+  type        = string
+  default     = "kalacharamevents@gmail.com"
+}

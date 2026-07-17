@@ -148,3 +148,93 @@ resource "aws_route53_record" "cloudfront_alias" {
     evaluate_target_health = false
   }
 }
+
+data "archive_file" "contact_email_lambda_zip" {
+  type        = "zip"
+  source_file = "${path.module}/lambda/send_email.py"
+  output_path = "${path.module}/lambda/send_email.zip"
+}
+
+resource "aws_iam_role" "contact_email_lambda_role" {
+  name = "kalacharam-contact-email-lambda-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "contact_email_lambda_policy" {
+  name = "kalacharam-contact-email-lambda-policy"
+  role = aws_iam_role.contact_email_lambda_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "arn:aws:logs:*:*:*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ses:SendEmail",
+          "ses:SendRawEmail"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_lambda_function" "contact_email" {
+  function_name    = "kalacharam-contact-email"
+  role             = aws_iam_role.contact_email_lambda_role.arn
+  handler          = "send_email.lambda_handler"
+  runtime          = "python3.12"
+  filename         = data.archive_file.contact_email_lambda_zip.output_path
+  source_code_hash = data.archive_file.contact_email_lambda_zip.output_base64sha256
+  timeout          = 15
+
+  environment {
+    variables = {
+      FROM_EMAIL = var.ses_sender_email
+      TO_EMAIL   = var.ses_recipient_email
+    }
+  }
+
+  depends_on = [aws_iam_role_policy.contact_email_lambda_policy]
+}
+
+resource "aws_lambda_function_url" "contact_email" {
+  function_name      = aws_lambda_function.contact_email.function_name
+  authorization_type = "NONE"
+
+  cors {
+    allow_credentials = false
+    allow_origins     = ["*"]
+    allow_methods     = ["POST"]
+    allow_headers     = ["content-type"]
+  }
+}
+
+resource "aws_lambda_permission" "contact_email_public_url" {
+  statement_id           = "AllowPublicFunctionUrlInvoke"
+  action                 = "lambda:InvokeFunctionUrl"
+  function_name          = aws_lambda_function.contact_email.function_name
+  principal              = "*"
+  function_url_auth_type = "NONE"
+}

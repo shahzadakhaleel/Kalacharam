@@ -20,6 +20,25 @@ A React static website for the event management company Kalacharam Events. The s
    npm run dev
    ```
 
+## Contact form email setup (AWS SES)
+
+The **Send Message** button calls an AWS Lambda Function URL, which sends email through AWS SES to:
+
+- `kalacharamevents@gmail.com`
+
+Terraform provisions this automatically and outputs:
+
+- `contact_api_url`
+
+For local testing, set this in `.env`:
+
+- `VITE_CONTACT_API_URL=<terraform output -raw contact_api_url>`
+
+SES sender/recipient values are configured in Terraform variables:
+
+- `ses_sender_email`
+- `ses_recipient_email`
+
 ## Deploy
 
 1. Ensure AWS credentials are configured in your environment.

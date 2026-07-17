@@ -12,3 +12,8 @@ output "website_url" {
   description = "The public website URL via CloudFront"
   value       = "https://${aws_cloudfront_distribution.website.domain_name}"
 }
+
+output "contact_api_url" {
+  description = "Public function URL for contact form email submissions"
+  value       = aws_lambda_function_url.contact_email.function_url
+}

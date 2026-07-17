@@ -3,3 +3,5 @@
 aws_region = "us-east-1"
 site_domain = null
 route53_zone_id = null
+ses_sender_email = "kalacharamevents@gmail.com"
+ses_recipient_email = "kalacharamevents@gmail.com"
