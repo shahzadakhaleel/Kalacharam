@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import logoUrl from '/logo.svg'
 
-const PAGES = ['home', 'about', 'events', 'gallery', 'contact']
+const PAGES = ['home', 'about', 'events', 'gallery', 'process', 'contact']
 const CONTACT_DISPLAY_EMAIL = 'kalacharamevents@gmail.com'
 const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL
 
@@ -56,6 +56,39 @@ const EVENT_CATEGORIES = [
     icon: '🎓',
     image:
       'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80'
+  }
+]
+
+const HOME_EVENT_CATEGORIES = [
+  {
+    title: 'Corporate Events',
+    subtitle: 'Conferences, Seminars, Product Launches, Awards and more.',
+    icon: '🧑‍💼'
+  },
+  {
+    title: 'Private Events',
+    subtitle: 'Weddings, Birthdays, Family Anniversaries and special occasions.',
+    icon: '🎉'
+  },
+  {
+    title: 'Sports & Adventure',
+    subtitle: 'Tournaments, Adventure Trips and Outdoor Team Building.',
+    icon: '🏆'
+  },
+  {
+    title: 'Social & Cultural',
+    subtitle: 'Festivals, Community Events, Charity Events and celebrations.',
+    icon: '🎭'
+  },
+  {
+    title: 'Award Ceremonies',
+    subtitle: 'Corporate Awards, Recognition Events and gala nights.',
+    icon: '🏅'
+  },
+  {
+    title: 'Educational Events',
+    subtitle: 'Workshops, Training Sessions, School and College events.',
+    icon: '🎓'
   }
 ]
 
@@ -139,7 +172,7 @@ function CategoryGrid() {
 
 function HomePage({ onNavigate }) {
   return (
-    <>
+    <div className="home-exact">
       <section className="hero-home">
         <div className="hero-copy">
           <p className="eyebrow">We Create. You Celebrate.</p>
@@ -158,7 +191,7 @@ function HomePage({ onNavigate }) {
           </div>
         </div>
         <div className="hero-visual" aria-hidden="true">
-          <div className="curtain-panel">Kalacharam Events</div>
+          
         </div>
       </section>
 
@@ -167,7 +200,15 @@ function HomePage({ onNavigate }) {
           <p>What We Do</p>
           <h3>Our Event Categories</h3>
         </div>
-        <CategoryGrid />
+        <div className="home-category-grid">
+          {HOME_EVENT_CATEGORIES.map((item) => (
+            <article className="home-category-card" key={item.title}>
+              <div className="home-category-icon" aria-hidden="true">{item.icon}</div>
+              <h4>{item.title}</h4>
+              <p>{item.subtitle}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="section">
@@ -175,10 +216,10 @@ function HomePage({ onNavigate }) {
           <p>Why Choose Us</p>
           <h3>Your Vision, Perfectly Executed</h3>
         </div>
-        <div className="value-grid">
+        <div className="home-value-grid">
           {VALUE_POINTS.map((point) => (
-            <article key={point.title} className="value-card">
-              <span aria-hidden="true">{point.icon}</span>
+            <article key={point.title} className="home-value-card">
+              <span className="home-value-icon" aria-hidden="true">{point.icon}</span>
               <h4>{point.title}</h4>
               <p>{point.description}</p>
             </article>
@@ -193,7 +234,7 @@ function HomePage({ onNavigate }) {
           Get a Free Consultation
         </button>
       </section>
-    </>
+    </div>
   )
 }
 
@@ -507,18 +548,6 @@ function App() {
   }, [])
 
   const navigate = (nextPage) => {
-    if (nextPage === 'process') {
-      setPage('home')
-      const params = new URLSearchParams(window.location.search)
-      params.set('page', 'home')
-      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}#process`)
-      window.setTimeout(() => {
-        const section = document.getElementById('process')
-        section?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 60)
-      return
-    }
-
     setPage(nextPage)
     const params = new URLSearchParams(window.location.search)
     params.set('page', nextPage)
@@ -557,16 +586,12 @@ function App() {
 
       <main>
         {page === 'home' && (
-          <>
-            <HomePage onNavigate={navigate} />
-            <div id="process">
-              <ProcessPage />
-            </div>
-          </>
+          <HomePage onNavigate={navigate} />
         )}
         {page === 'about' && <AboutPage />}
         {page === 'events' && <EventsPage onNavigate={navigate} />}
         {page === 'gallery' && <GalleryPage />}
+        {page === 'process' && <ProcessPage />}
         {page === 'contact' && <ContactPage />}
       </main>
 
