@@ -238,3 +238,18 @@ resource "aws_lambda_permission" "contact_email_public_url" {
   principal              = "*"
   function_url_auth_type = "NONE"
 }
+
+resource "aws_lambda_permission" "contact_email_public_function_invoke" {
+  statement_id  = "AllowPublicFunctionInvokeViaUrl"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.contact_email.function_name
+  principal     = "*"
+}
+
+resource "aws_sesv2_email_identity" "sender" {
+  email_identity = var.ses_sender_email
+}
+
+resource "aws_sesv2_email_identity" "recipient" {
+  email_identity = var.ses_recipient_email
+}

@@ -4,10 +4,9 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Push-Location $root
 
-$env:AWS_PROFILE = 'kalacharamdeveloper'
-Remove-Item Env:AWS_ACCESS_KEY_ID -ErrorAction SilentlyContinue
-Remove-Item Env:AWS_SECRET_ACCESS_KEY -ErrorAction SilentlyContinue
-Remove-Item Env:AWS_SESSION_TOKEN -ErrorAction SilentlyContinue
+$creds = aws configure export-credentials --profile madrasfarmers --format powershell | Out-String
+Invoke-Expression $creds
+Remove-Item Env:AWS_PROFILE -ErrorAction SilentlyContinue
 
 function Assert-LastExitCode {
     param(

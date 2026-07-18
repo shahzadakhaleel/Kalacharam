@@ -17,3 +17,13 @@ output "contact_api_url" {
   description = "Public function URL for contact form email submissions"
   value       = aws_lambda_function_url.contact_email.function_url
 }
+
+output "ses_sender_identity_arn" {
+  description = "SES sender identity ARN"
+  value       = aws_sesv2_email_identity.sender.arn
+}
+
+output "ses_recipient_identity_arn" {
+  description = "SES recipient identity ARN"
+  value       = aws_sesv2_email_identity.recipient.arn
+}

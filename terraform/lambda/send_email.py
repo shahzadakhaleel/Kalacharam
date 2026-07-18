@@ -15,9 +15,6 @@ def response(status_code: int, body: dict):
         "statusCode": status_code,
         "headers": {
             "content-type": "application/json",
-            "access-control-allow-origin": "*",
-            "access-control-allow-methods": "POST,OPTIONS",
-            "access-control-allow-headers": "content-type",
         },
         "body": json.dumps(body),
     }
@@ -85,6 +82,17 @@ def lambda_handler(event, _context):
             },
         )
     except ClientError as err:
-        return response(500, {"error": "Failed to send email", "details": str(err)})
+        error_code = err.response.get("Error", {}).get("Code", "ClientError")
+        if error_code == "MessageRejected":
+            return response(
+                502,
+                {
+                    "error": "SES rejected the email because the sender or recipient is not verified, or the account is still in sandbox mode.",
+                    "details": str(err),
+                    "errorCode": error_code,
+                },
+            )
+
+        return response(500, {"error": "Failed to send email", "details": str(err), "errorCode": error_code})
 
     return response(200, {"ok": True, "message": "Email sent successfully"})
