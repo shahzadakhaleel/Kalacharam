@@ -39,6 +39,18 @@ SES sender/recipient values are configured in Terraform variables:
 - `ses_sender_email`
 - `ses_recipient_email`
 
+For better deliverability (recommended), configure domain-based sending:
+
+- `ses_domain` (example: `kalacharam.com`)
+- `ses_mail_from_subdomain` (example: `mail`)
+- `route53_zone_id` (hosted zone ID for `kalacharam.com`)
+
+When `ses_domain` and `route53_zone_id` are set, Terraform creates:
+
+- SES domain identity
+- DKIM DNS records
+- MAIL FROM DNS (MX + SPF) records
+
 ## Deploy
 
 1. Ensure AWS credentials are configured in your environment.
@@ -57,6 +69,11 @@ route53_zone_id = "Z0123456789ABCDEFG"
 ```
 
 Then run Terraform from the `terraform` folder before deploying.
+
+## SES verification notes
+
+- If SES account is in sandbox mode, recipient addresses must also be verified.
+- Domain identity and DKIM improve inbox placement compared with Gmail sender identities.
 
 ## Notes
 

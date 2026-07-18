@@ -46,6 +46,7 @@ resource "aws_s3_bucket_policy" "public_read" {
 
 locals {
   use_custom_domain = var.site_domain != null && var.route53_zone_id != null
+  use_ses_domain    = var.ses_domain != null && var.route53_zone_id != null
 }
 
 data "aws_route53_zone" "selected" {
@@ -247,9 +248,70 @@ resource "aws_lambda_permission" "contact_email_public_function_invoke" {
 }
 
 resource "aws_sesv2_email_identity" "sender" {
+  count          = local.use_ses_domain ? 0 : 1
   email_identity = var.ses_sender_email
 }
 
 resource "aws_sesv2_email_identity" "recipient" {
   email_identity = var.ses_recipient_email
+}
+
+resource "aws_ses_domain_identity" "sender_domain" {
+  count  = local.use_ses_domain ? 1 : 0
+  domain = var.ses_domain
+}
+
+resource "aws_route53_record" "ses_verification" {
+  count   = local.use_ses_domain ? 1 : 0
+  zone_id = var.route53_zone_id
+  name    = "_amazonses.${var.ses_domain}"
+  type    = "TXT"
+  ttl     = 600
+  records = [aws_ses_domain_identity.sender_domain[0].verification_token]
+}
+
+resource "aws_ses_domain_identity_verification" "sender_domain" {
+  count  = local.use_ses_domain ? 1 : 0
+  domain = aws_ses_domain_identity.sender_domain[0].id
+
+  depends_on = [aws_route53_record.ses_verification]
+}
+
+resource "aws_ses_domain_dkim" "sender_domain" {
+  count  = local.use_ses_domain ? 1 : 0
+  domain = aws_ses_domain_identity.sender_domain[0].domain
+}
+
+resource "aws_route53_record" "ses_dkim" {
+  count   = local.use_ses_domain ? 3 : 0
+  zone_id = var.route53_zone_id
+  name    = "${element(aws_ses_domain_dkim.sender_domain[0].dkim_tokens, count.index)}._domainkey.${var.ses_domain}"
+  type    = "CNAME"
+  ttl     = 600
+  records = ["${element(aws_ses_domain_dkim.sender_domain[0].dkim_tokens, count.index)}.dkim.amazonses.com"]
+}
+
+resource "aws_ses_domain_mail_from" "sender_domain" {
+  count                = local.use_ses_domain ? 1 : 0
+  domain               = aws_ses_domain_identity.sender_domain[0].domain
+  mail_from_domain     = "${var.ses_mail_from_subdomain}.${var.ses_domain}"
+  behavior_on_mx_failure = "UseDefaultValue"
+}
+
+resource "aws_route53_record" "ses_mail_from_mx" {
+  count   = local.use_ses_domain ? 1 : 0
+  zone_id = var.route53_zone_id
+  name    = aws_ses_domain_mail_from.sender_domain[0].mail_from_domain
+  type    = "MX"
+  ttl     = 600
+  records = ["10 feedback-smtp.${var.aws_region}.amazonses.com"]
+}
+
+resource "aws_route53_record" "ses_mail_from_txt" {
+  count   = local.use_ses_domain ? 1 : 0
+  zone_id = var.route53_zone_id
+  name    = aws_ses_domain_mail_from.sender_domain[0].mail_from_domain
+  type    = "TXT"
+  ttl     = 600
+  records = ["v=spf1 include:amazonses.com -all"]
 }
