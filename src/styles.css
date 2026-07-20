@@ -123,6 +123,20 @@ textarea {
   cursor: pointer;
   font-size: 0.82rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dropdown-arrow {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
 }
 
 .dropdown-trigger.active {
@@ -136,8 +150,6 @@ textarea {
   top: calc(100% + 8px);
   left: 0;
   min-width: 280px;
-  max-height: 58vh;
-  overflow-y: auto;
   background: #fffaf1;
   border: 1px solid #dec49c;
   border-radius: 10px;

@@ -970,24 +970,6 @@ function EventDetailPage({ event, onNavigate }) {
     <>
       <HeroBanner title={event.title} breadcrumb={`Home > Events > ${event.title}`} />
 
-      <section className="section event-detail-submenu">
-        <div className="event-submenu-scroll" role="tablist" aria-label="Events submenu">
-          <button type="button" className="btn btn-secondary" onClick={() => onNavigate('events')}>
-            ← Events Overview
-          </button>
-          {EVENT_DETAIL_PAGES.map((item) => (
-            <button
-              key={item.key}
-              type="button"
-              className={`event-chip ${item.key === event.key ? 'active' : ''}`}
-              onClick={() => onNavigate(item.key)}
-            >
-              {item.title}
-            </button>
-          ))}
-        </div>
-      </section>
-
       <section className="section event-detail-intro">
         <img src={event.heroImage} alt={event.title} />
         <div>
@@ -1278,6 +1260,9 @@ function App() {
               aria-controls="events-nav-submenu"
             >
               Events
+              <svg className={`dropdown-arrow ${eventsMenuOpen ? 'open' : ''}`} viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
 
             <div id="events-nav-submenu" className="events-nav-submenu" role="menu">
