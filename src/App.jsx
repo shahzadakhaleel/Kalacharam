@@ -853,7 +853,7 @@ function AboutPage({ onNavigate }) {
       </section>
 
       <section className="section mission-vision">
-        <img src="/abou2.png" alt="Concert performance" />
+        <img src="/about3.png" alt="Concert performance" />
         <div className="mission-vision-content">
           <article>
             <p className="eyebrow">Our Mission</p>
@@ -873,14 +873,36 @@ function AboutPage({ onNavigate }) {
         <div className="value-grid">
           <article className="value-card">
             <div className="value-icon">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="var(--maroon)" strokeWidth="2"/><path d="M16 32c2-6 6-10 8-10s6 4 8 10" stroke="var(--maroon)" strokeWidth="2" strokeLinecap="round"/><circle cx="20" cy="20" r="2" fill="var(--maroon)"/><circle cx="28" cy="20" r="2" fill="var(--maroon)"/><path d="M18 14c1-3 5-5 6-3" stroke="var(--maroon)" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Left person - filled dot head */}
+                <circle cx="22" cy="31" r="5.5" fill="var(--maroon)"/>
+                {/* Left person - body arc */}
+                <path d="M8 65 C8 53 15 47 25 45 L33 45" stroke="var(--maroon)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+                {/* Right person - filled dot head */}
+                <circle cx="58" cy="31" r="5.5" fill="var(--maroon)"/>
+                {/* Right person - body arc */}
+                <path d="M72 65 C72 53 65 47 55 45 L47 45" stroke="var(--maroon)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+                {/* Center - open circle head */}
+                <circle cx="40" cy="14" r="6.5" stroke="var(--maroon)" strokeWidth="3.5"/>
+                {/* Center - neck line */}
+                <line x1="40" y1="20.5" x2="40" y2="27" stroke="var(--maroon)" strokeWidth="3.5" strokeLinecap="round"/>
+                {/* Center - torso ring */}
+                <circle cx="40" cy="33" r="9.5" stroke="var(--maroon)" strokeWidth="3.5"/>
+                {/* Center - connector to dot */}
+                <line x1="40" y1="42.5" x2="40" y2="45" stroke="var(--maroon)" strokeWidth="3.5" strokeLinecap="round"/>
+                {/* Center - small filled dot */}
+                <circle cx="40" cy="48" r="4" fill="var(--maroon)"/>
+                {/* Center - lower body / robe */}
+                <path d="M29 65 L32 53 L48 53 L51 65" stroke="var(--maroon)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M29 65 Q40 69 51 65" stroke="var(--maroon)" strokeWidth="3.5" strokeLinecap="round"/>
+              </svg>
             </div>
             <h4>Creativity</h4>
             <p>We bring fresh ideas to life.</p>
           </article>
           <article className="value-card">
             <div className="value-icon">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="var(--maroon)" strokeWidth="2"/><path d="M24 14v6M24 28v2" stroke="var(--maroon)" strokeWidth="2" strokeLinecap="round"/><path d="M17 20h14" stroke="var(--maroon)" strokeWidth="2" strokeLinecap="round"/><path d="M19 26h10" stroke="var(--maroon)" strokeWidth="2" strokeLinecap="round"/><circle cx="24" cy="34" r="1.5" fill="var(--maroon)"/></svg>
+              <img src="/about2.png" alt="Integrity" style={{width:'64px',height:'64px',objectFit:'contain'}}/>
             </div>
             <h4>Integrity</h4>
             <p>We value honesty and transparency.</p>
@@ -894,7 +916,10 @@ function AboutPage({ onNavigate }) {
           </article>
           <article className="value-card">
             <div className="value-icon">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="var(--maroon)" strokeWidth="2"/><path d="M24 33s-9-5.5-9-12a6 6 0 0112 0 6 6 0 0112 0c0 6.5-9 12-9 12h-6z" stroke="var(--maroon)" strokeWidth="1.8" strokeLinejoin="round"/></svg>
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M32 54 C32 54 6 38 6 22 C6 13 13 7 20 7 C25 7 29 10 32 14 C35 10 39 7 44 7 C51 7 58 13 58 22 C58 38 32 54 32 54 Z"
+                  stroke="var(--maroon)" strokeWidth="4" strokeLinejoin="round"/>
+              </svg>
             </div>
             <h4>Passion</h4>
             <p>We love what we do and it shows.</p>
