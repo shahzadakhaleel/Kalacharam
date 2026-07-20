@@ -805,28 +805,42 @@ function HomePage({ onNavigate }) {
   )
 }
 
-function AboutPage() {
+function AboutPage({ onNavigate }) {
   return (
     <>
-      <HeroBanner title="About Kalacharam Events" breadcrumb="Home > About Us" />
-      <section className="section about-layout">
-        <div>
-          <p className="eyebrow">Who We Are</p>
-          <h3>Creating Experiences That Connect People</h3>
-          <p>
-            Kalacharam Events is a full-service event management company passionate about creating unique,
-            meaningful and memorable experiences.
-          </p>
-          <p>
-            With a talented team and a network of trusted partners, we handle every detail with precision and
-            creativity.
-          </p>
+      <section className="about-hero">
+        <div className="about-hero-inner">
+          <p className="about-hero-eyebrow">ABOUT US</p>
+          <h1 className="about-hero-title">Meaningful events,<br />meticulously made.</h1>
         </div>
-        <img
-          className="about-image"
-          src="/about1.png"
-          alt="Event hall setup"
-        />
+      </section>
+
+      <section className="section">
+        <div className="about-story-grid">
+          <div className="about-story-image">
+            <img src="/about1.png" alt="Event setup" />
+          </div>
+          <div className="about-story-content">
+            <p className="eyebrow">Our Story</p>
+            <h3>Culture, creativity and human connection</h3>
+            <p>
+              Kalacharam Events is built around a simple belief: the best events feel effortless to the guest
+              because every detail has been considered behind the scenes.
+            </p>
+            <p>
+              We combine creative direction, project management and trusted vendor partnerships to deliver events
+              that are beautiful, functional and true to the client's purpose.
+            </p>
+            <div className="about-mini-stats">
+              {[['360°', 'Planning'], ['One', 'Team'], ['100%', 'Commitment']].map(([num, label]) => (
+                <div key={label} className="about-mini-stat">
+                  <strong>{num}</strong>
+                  <span>{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="section stats-grid">
@@ -839,22 +853,15 @@ function AboutPage() {
       </section>
 
       <section className="section mission-vision">
-        <img
-          src="/abou2.png"
-          alt="Concert performance"
-        />
+        <img src="/abou2.png" alt="Concert performance" />
         <div className="mission-vision-content">
           <article>
             <p className="eyebrow">Our Mission</p>
-            <p>
-              To deliver extraordinary events that inspire, engage and leave a lasting impression.
-            </p>
+            <p>To deliver extraordinary events that inspire, engage and leave a lasting impression.</p>
           </article>
           <article>
             <p className="eyebrow">Our Vision</p>
-            <p>
-              To be the most trusted event management partner known for creativity, integrity and excellence.
-            </p>
+            <p>To be the most trusted event management partner known for creativity, integrity and excellence.</p>
           </article>
         </div>
       </section>
@@ -1329,7 +1336,7 @@ function App() {
         {page === 'home' && (
           <HomePage onNavigate={navigate} />
         )}
-        {page === 'about' && <AboutPage />}
+        {page === 'about' && <AboutPage onNavigate={navigate} />}
         {page === 'events' && <EventsPage onNavigate={navigate} />}
         {EVENT_PAGE_MAP[page] && <EventDetailPage event={EVENT_PAGE_MAP[page]} onNavigate={navigate} />}
         {page === 'gallery' && <GalleryPage />}
