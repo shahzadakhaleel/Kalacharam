@@ -3,7 +3,7 @@ resource "random_id" "bucket_id" {
 }
 
 resource "aws_s3_bucket" "website" {
-  bucket = "kalacharam-events-${random_id.bucket_id.hex}"
+  bucket = "kalacharam-events"
 
   website {
     index_document = "index.html"
