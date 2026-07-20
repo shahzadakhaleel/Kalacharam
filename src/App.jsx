@@ -172,29 +172,6 @@ const PACKAGE_TIERS = [
   }
 ]
 
-const TESTIMONIALS = [
-  {
-    name: 'Aditi Rao',
-    role: 'Bride, Bengaluru',
-    quote:
-      'Kalacharam transformed our wedding into a breathtaking experience. Every moment felt intentional, elegant, and deeply personal.',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80&fm=webp'
-  },
-  {
-    name: 'Rahul Menon',
-    role: 'HR Head, Tech Enterprise',
-    quote:
-      'From stage direction to guest flow, their corporate gala execution was world-class. Our leadership team was truly impressed.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80&fm=webp'
-  },
-  {
-    name: 'Niharika S',
-    role: 'Festival Committee Lead',
-    quote:
-      'They captured the soul of our cultural festival while delivering flawless production standards. Audience response was phenomenal.',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=500&q=80&fm=webp'
-  }
-]
 
 const EVENT_DETAIL_PAGES = [
   {
@@ -737,25 +714,7 @@ function HomePage({ onNavigate }) {
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-title">
-          <p>Verified Client Voices</p>
-          <h3>Live Testimonials</h3>
-        </div>
-
-        <div className="testimonial-carousel" aria-label="Client testimonials">
-          {TESTIMONIALS.map((item) => (
-            <article key={item.name} className="testimonial-card fade-in-up">
-              <img src={item.image} alt={item.name} loading="lazy" />
-              <div>
-                <h4>{item.name}</h4>
-                <span>{item.role}</span>
-                <p>“{item.quote}”</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      
 
       <section className="cta-strip">
         <h3>Let’s Make Your Next Event Unforgettable!</h3>
