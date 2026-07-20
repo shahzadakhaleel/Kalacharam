@@ -5,7 +5,6 @@ const PAGES = [
   'home',
   'about',
   'events',
-  'gallery',
   'process',
   'contact',
   'event-talent-platform',
@@ -25,7 +24,6 @@ const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL
 const NAV_ITEMS = [
   { key: 'home', label: 'Home' },
   { key: 'about', label: 'About Us' },
-  { key: 'gallery', label: 'Gallery' },
   { key: 'contact', label: 'Contact' }
 ]
 
@@ -119,41 +117,6 @@ const STATS = [
   { label: 'Years Experience', value: '10+' },
   { label: 'Happy Clients', value: '100+' },
   { label: 'Expert Team', value: '25+' }
-]
-
-const GALLERY_FILTERS = ['All', 'Corporate', 'Private', 'Sports & Adventure', 'Social & Cultural', 'Award Ceremonies', 'Educational']
-
-const GALLERY_ITEMS = [
-  {
-    title: 'Corporate Stage Night',
-    category: 'Corporate',
-    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Premium Wedding Decor',
-    category: 'Private',
-    image: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Leadership Awards Hall',
-    category: 'Award Ceremonies',
-    image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Celebration Portraits',
-    category: 'Social & Cultural',
-    image: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Adventure Team Event',
-    category: 'Sports & Adventure',
-    image: 'https://images.unsplash.com/photo-1526676037777-05a232554f77?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Education Seminar Setup',
-    category: 'Educational',
-    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80'
-  }
 ]
 
 const PORTFOLIO_FILTERS = ['All', 'Weddings', 'Corporate Galas', 'Cultural Festivals']
@@ -1057,51 +1020,6 @@ function EventDetailPage({ event, onNavigate }) {
   )
 }
 
-function GalleryPage() {
-  const [activeFilter, setActiveFilter] = useState('All')
-
-  const filteredItems = useMemo(
-    () =>
-      GALLERY_ITEMS.filter((item) => {
-        if (activeFilter === 'All') return true
-        return item.category === activeFilter
-      }),
-    [activeFilter]
-  )
-
-  return (
-    <>
-      <HeroBanner title="Our Gallery" breadcrumb="Home > Gallery" />
-      <section className="section">
-        <div className="gallery-filters" role="group" aria-label="Gallery category filters">
-          {GALLERY_FILTERS.map((filter) => (
-            <button
-              type="button"
-              key={filter}
-              className={`filter-pill ${activeFilter === filter ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        <div className="gallery-grid">
-          {filteredItems.map((item) => (
-            <article key={item.title} className="gallery-card">
-              <img src={item.image} alt={item.title} />
-              <div className="gallery-caption">
-                <h4>{item.title}</h4>
-                <p>{item.category}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </>
-  )
-}
-
 function ContactPage() {
   const [form, setForm] = useState({
     name: '',
@@ -1207,9 +1125,22 @@ function ContactPage() {
           <h3>Get In Touch</h3>
           <p>📞 +91 98765 43210</p>
           <p>✉️ {CONTACT_DISPLAY_EMAIL}</p>
-          <p>📍 Bengaluru, India</p>
+          <p>📍 Chennai, India</p>
           <h4>Follow Us</h4>
-          <p>Facebook · Instagram · LinkedIn · YouTube</p>
+          <div className="social-icons contact-social">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+            </a>
+          </div>
         </aside>
       </section>
     </>
@@ -1220,11 +1151,22 @@ function Footer({ onNavigate }) {
   return (
     <footer className="site-footer">
       <div className="footer-columns">
-        <div>
-          <h4>Kalacharam Events</h4>
-          <p>
-            We design and deliver exceptional events that inspire, engage and create lasting memories.
-          </p>
+        <div className="footer-brand">
+          <p>We design and deliver exceptional events that inspire, engage and create lasting memories.</p>
+          <div className="social-icons">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+            </a>
+          </div>
         </div>
         <div>
           <h5>Quick Links</h5>
@@ -1232,29 +1174,32 @@ function Footer({ onNavigate }) {
             <li><button onClick={() => onNavigate('home')} type="button">Home</button></li>
             <li><button onClick={() => onNavigate('about')} type="button">About Us</button></li>
             <li><button onClick={() => onNavigate('events')} type="button">Events</button></li>
-            <li><button onClick={() => onNavigate('gallery')} type="button">Gallery</button></li>
+            <li><button onClick={() => onNavigate('process')} type="button">Our Process</button></li>
             <li><button onClick={() => onNavigate('contact')} type="button">Contact</button></li>
           </ul>
         </div>
         <div>
           <h5>Event Categories</h5>
           <ul>
-            {EVENT_CATEGORIES.map((item) => (
-              <li key={item.title}>{item.title}</li>
-            ))}
+            <li><button onClick={() => onNavigate('events')} type="button">Corporate Events</button></li>
+            <li><button onClick={() => onNavigate('events')} type="button">Private Events</button></li>
+            <li><button onClick={() => onNavigate('events')} type="button">Sports &amp; Adventure</button></li>
+            <li><button onClick={() => onNavigate('events')} type="button">Social &amp; Cultural</button></li>
+            <li><button onClick={() => onNavigate('events')} type="button">Award Ceremonies</button></li>
+            <li><button onClick={() => onNavigate('events')} type="button">Educational Events</button></li>
           </ul>
         </div>
-        <div>
+        <div className="footer-contact">
           <h5>Contact Us</h5>
-          <p>+91 98765 43210</p>
-          <p>{CONTACT_DISPLAY_EMAIL}</p>
-          <p>Bengaluru, India</p>
+          <p>📞 +91 98765 43210</p>
+          <p>✉️ {CONTACT_DISPLAY_EMAIL}</p>
+          <p>📍 Bengaluru, India</p>
           <button onClick={() => onNavigate('contact')} type="button" className="btn btn-secondary footer-btn">
             Get In Touch
           </button>
         </div>
       </div>
-      <p className="footer-copy">© 2026 Kalacharam Events. All Rights Reserved.</p>
+      <p className="footer-copy">© 2025 Kalacharam Events. All Rights Reserved.</p>
     </footer>
   )
 }
@@ -1364,7 +1309,6 @@ function App() {
         {page === 'about' && <AboutPage onNavigate={navigate} />}
         {page === 'events' && <EventsPage onNavigate={navigate} />}
         {EVENT_PAGE_MAP[page] && <EventDetailPage event={EVENT_PAGE_MAP[page]} onNavigate={navigate} />}
-        {page === 'gallery' && <GalleryPage />}
         {page === 'process' && <ProcessPage />}
         {page === 'contact' && <ContactPage />}
       </main>
