@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import logoUrl from '/logo.svg'
 
 const PAGES = [
@@ -1186,7 +1187,20 @@ function App() {
   const isEventsActive = page === 'events' || page.startsWith('event-')
 
   return (
-    <div className="site-shell">
+    <HelmetProvider>
+      <Helmet>
+        <title>Kalacharam Events - Corporate Event Planning in Chennai</title>
+        <meta name="description" content="Professional event planning services in Chennai. Book your next corporate event, wedding, or cultural celebration with Kalacharam Events." />
+        <meta name="keywords" content="events, corporate events, Chennai, event planning, weddings, celebrations" />
+        <meta property="og:title" content="Kalacharam Events - Corporate Event Planning in Chennai" />
+        <meta property="og:description" content="Professional event planning services in Chennai. Book your next corporate event, wedding, or cultural celebration with Kalacharam Events." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kalacharam.com" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Kalacharam Events - Corporate Event Planning in Chennai" />
+        <meta name="twitter:description" content="Professional event planning services in Chennai. Book your next corporate event, wedding, or cultural celebration with Kalacharam Events." />
+      </Helmet>
+      <div className="site-shell">
       <header className="site-header">
         <button type="button" className="brand" onClick={() => navigate('home')}>
           <img src={logoUrl} alt="Kalacharam Events" className="brand-logo" />
@@ -1259,6 +1273,7 @@ function App() {
 
       <Footer onNavigate={navigate} />
     </div>
+    </HelmetProvider>
   )
 }
 
