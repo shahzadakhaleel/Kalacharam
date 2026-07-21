@@ -1,6 +1,6 @@
 # Example Terraform variables for optional custom domain deployment
 
-aws_region = "us-east-1"
+aws_region = "ap-south-1"
 site_domain = null
 route53_zone_id = null
 ses_domain = "kalacharam.com"
