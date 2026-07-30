@@ -1065,7 +1065,7 @@ function ContactPage() {
 
         <aside className="contact-info">
           <h3>Get In Touch</h3>
-          <p>📞 +91 98765 43210</p>
+          <p>📞 +91 99403 18440</p>
           <p>✉️ {CONTACT_DISPLAY_EMAIL}</p>
           <p>📍 Chennai, India</p>
           <h4>Follow Us</h4>
@@ -1133,9 +1133,9 @@ function Footer({ onNavigate }) {
         </div>
         <div className="footer-contact">
           <h5>Contact Us</h5>
-          <p>📞 +91 98765 43210</p>
+          <p>📞 +91 99403 18440</p>
           <p>✉️ {CONTACT_DISPLAY_EMAIL}</p>
-          <p>📍 Bengaluru, India</p>
+          <p>📍 Chennai, India</p>
           <button onClick={() => onNavigate('contact')} type="button" className="btn btn-secondary footer-btn">
             Get In Touch
           </button>
