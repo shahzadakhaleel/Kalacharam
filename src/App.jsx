@@ -32,6 +32,35 @@ const CONTACT_WHATSAPP_NUMBER = '919940318440'
 const CONTACT_WHATSAPP_URL = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello Kalacharam Events, I would like to discuss an event.')}`
 const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL
 
+const THEME_IMAGES = {
+  hero: '/kalacharam-hero-bright.png',
+  wedding: '/kalacharam-wedding-concept.png',
+  corporate: '/kalacharam-corporate-concept.png',
+  cultural: '/kalacharam-cultural-concept.png',
+  awards: '/kalacharam-corporate-awards.png',
+  talent: '/kalacharam-talent-stage.png',
+  fashion: '/kalacharam-fashion-runway.png',
+  literary: '/kalacharam-literary-salon.png',
+  sports: '/kalacharam-sports-ceremony.png',
+  children: '/kalacharam-children-awards.png'
+}
+
+function themeImageFor(label = '') {
+  const value = label.toLowerCase()
+
+  if (value.includes('children')) return THEME_IMAGES.children
+  if (value.includes('sports') || value.includes('adventure')) return THEME_IMAGES.sports
+  if (value.includes('fashion') || value.includes('runway') || value.includes('choreo')) return THEME_IMAGES.fashion
+  if (value.includes('literary') || value.includes('education') || value.includes('script') || value.includes('workshop')) return THEME_IMAGES.literary
+  if (value.includes('award') || value.includes('recognition')) return THEME_IMAGES.awards
+  if (value.includes('wedding') || value.includes('marriage') || value.includes('private')) return THEME_IMAGES.wedding
+  if (value.includes('cultural') || value.includes('festival') || value.includes('community')) return THEME_IMAGES.cultural
+  if (value.includes('corporate') || value.includes('leadership') || value.includes('annual')) return THEME_IMAGES.corporate
+  if (value.includes('talent') || value.includes('stage') || value.includes('performance') || value.includes('show')) return THEME_IMAGES.talent
+
+  return THEME_IMAGES.hero
+}
+
 const NAV_ITEMS = [
   { key: 'home', label: 'Home' },
   { key: 'about', label: 'About Us' },
@@ -71,8 +100,7 @@ const EVENT_CATEGORIES = [
     title: 'Award Ceremonies',
     subtitle: 'Corporate Awards, Recognition Events',
     icon: 'medal',
-    image:
-      'https://images.unsplash.com/photo-1560523159-4a9692d222f9?auto=format&fit=crop&w=1200&q=80'
+    image: '/kalacharam-corporate-awards.png'
   },
   {
     title: 'Educational Events',
@@ -123,19 +151,12 @@ const VALUE_POINTS = [
   { title: 'Memorable Experiences', description: 'Events guests remember for a lifetime.', icon: 'heart' }
 ]
 
-const STATS = [
-  { label: 'Events Managed', value: '200+' },
-  { label: 'Years Experience', value: '10+' },
-  { label: 'Happy Clients', value: '100+' },
-  { label: 'Expert Team', value: '25+' }
-]
-
-const TRUST_VENUES = [
-  'ITC Grand Chola',
-  'Taj Coromandel',
-  'The Leela Palace',
-  'Chennai Trade Centre',
-  'Private Estate Venues'
+const VENUE_TYPES = [
+  'Hotels and ballrooms',
+  'Convention centres',
+  'Cultural venues',
+  'Outdoor event spaces',
+  'Private estates'
 ]
 
 const PRIMARY_SERVICES = [
@@ -143,19 +164,19 @@ const PRIMARY_SERVICES = [
     title: 'Weddings and private celebrations',
     description: 'Multi-day wedding planning, design, and seamless family-focused guest hospitality.',
     pageKey: 'service-wedding-planning-chennai',
-    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=80&fm=webp'
+    image: '/kalacharam-wedding-concept.png'
   },
   {
     title: 'Corporate events and brand experiences',
     description: 'Leadership events, annual galas, partner meets, and brand moments with executive polish.',
     pageKey: 'service-corporate-event-management-chennai',
-    image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80&fm=webp'
+    image: '/kalacharam-corporate-concept.png'
   },
   {
     title: 'Cultural and community events',
     description: 'Heritage-led festivals and public celebrations produced with safety, flow, and visual impact.',
     pageKey: 'service-cultural-events',
-    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=80&fm=webp'
+    image: '/kalacharam-cultural-concept.png'
   }
 ]
 
@@ -298,14 +319,8 @@ const HOW_KALACHARAM_WORKS = [
   { title: 'Deliver', description: 'On-ground execution with hospitality, precision, and post-event closure.' }
 ]
 
-const EVENT_FILM = {
-  title: 'Celebration design inspiration',
-  image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80&fm=webp'
-}
-
 const HERO_MEDIA = {
-  image:
-    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2200&q=80&fm=webp'
+  image: '/kalacharam-hero-bright.png'
 }
 
 const IMMERSIVE_MEDIA = {
@@ -319,7 +334,7 @@ const PORTFOLIO_ITEMS = [
   {
     title: 'Destination Wedding Experience',
     category: 'Weddings',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80&fm=webp',
+    image: '/kalacharam-wedding-concept.png',
     conceptBrief: 'A multi-day celebration blending traditional ceremonies with contemporary guest hospitality.',
     capabilities: ['Wedding design direction', 'Vendor and logistics planning', 'Hospitality and guest concierge'],
     designDirection: 'Temple-inspired floral architecture in ivory, marigold and antique gold.',
@@ -328,7 +343,7 @@ const PORTFOLIO_ITEMS = [
   {
     title: 'Executive Leadership Gala Night',
     category: 'Corporate Galas',
-    image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1600&q=80&fm=webp',
+    image: '/kalacharam-corporate-concept.png',
     conceptBrief: 'A leadership gathering focused on recognition, brand storytelling and partner hosting.',
     capabilities: ['Show-flow development', 'AV and lighting production', 'Protocol and VIP movement planning'],
     designDirection: 'A cinematic black-and-gold stage with lounge-style networking zones.',
@@ -337,7 +352,7 @@ const PORTFOLIO_ITEMS = [
   {
     title: 'Cultural Heritage Evening',
     category: 'Cultural Festivals',
-    image: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1600&q=80&fm=webp',
+    image: '/kalacharam-cultural-concept.png',
     conceptBrief: 'A heritage-led celebration integrating regional performances and sponsor experiences.',
     capabilities: ['Creative curation', 'Artist programming', 'Crowd-flow and sponsor-zone planning'],
     designDirection: 'A South Indian festival streetscape with layered lighting and live-art stations.',
@@ -834,13 +849,13 @@ const EVENT_DETAIL_PAGES = [
     icon: 'award',
     summary:
       'Recognition ceremonies designed to honour excellence with prestige, fairness, and unforgettable stage moments.',
-    heroImage: 'https://images.unsplash.com/photo-1560523159-4a9692d222f9?auto=format&fit=crop&w=1600&q=80',
+    heroImage: '/kalacharam-corporate-awards.png',
     sections: [
       {
         heading: 'Credible Awards Architecture',
         text:
           'A great awards night begins long before stage lights turn on. We assist with category design, nominee flow, shortlisting structure, and reveal sequencing so recognition feels transparent and meaningful. This foundational design builds trust across teams and amplifies the value of each honour conferred.',
-        image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1200&q=80'
+        image: '/kalacharam-corporate-awards.png'
       },
       {
         heading: 'Ceremony Experience & Prestige Delivery',
@@ -983,7 +998,7 @@ function CategoryGrid() {
     <div className="category-grid">
       {EVENT_CATEGORIES.map((item) => (
         <article className="category-card" key={item.title}>
-          <img src={item.image} alt={item.title} />
+          <img src={themeImageFor(item.title)} alt={item.title} />
           <div className="category-icon" aria-hidden="true">
             <LuxuryIcon name={iconNameFromItem(item.icon, item.title)} />
           </div>
@@ -1001,7 +1016,7 @@ function ServiceDetailPage({ service, onNavigate }) {
       <HeroBanner title={service.title} breadcrumb={`Home > Services > ${service.title}`} />
 
       <section className="section event-detail-intro service-detail-intro">
-        <img src={service.heroImage} alt={service.title} />
+        <img src={themeImageFor(service.title)} alt={service.title} />
         <div>
           <p className="eyebrow">Service Overview</p>
           <h3>{service.title}</h3>
@@ -1032,8 +1047,8 @@ function ServiceDetailPage({ service, onNavigate }) {
           <h3>Visual style references</h3>
         </div>
         <div className="service-gallery-grid">
-          {service.gallery.map((img) => (
-            <img key={img} src={img} alt={`${service.title} visual reference`} loading="lazy" />
+          {service.gallery.map((img, index) => (
+            <img key={img} src={themeImageFor(`${service.title} ${index === 1 ? service.services[index] || '' : ''}`)} alt={`${service.title} visual reference`} loading="lazy" />
           ))}
         </div>
       </section>
@@ -1109,38 +1124,13 @@ function HomePage({ onNavigate }) {
 
       <section className="section trust-strip-section">
         <div className="trust-strip-title">
-          <p>Trusted Venue Network</p>
+          <p>Experience across Chennai’s event landscape</p>
         </div>
-        <div className="trust-strip" role="list" aria-label="Venue trust strip">
-          {TRUST_VENUES.map((venue) => (
+        <div className="trust-strip" role="list" aria-label="Types of event venues">
+          {VENUE_TYPES.map((venue) => (
             <span key={venue} className="trust-chip" role="listitem">{venue}</span>
           ))}
         </div>
-
-        <div className="trust-metrics-grid">
-          {STATS.map((item) => (
-            <article key={item.label} className="trust-metric-card fade-in-up">
-              <h4>{item.value}</h4>
-              <p>{item.label}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section consultation-funnel" aria-labelledby="consultation-funnel-title">
-        <div className="section-title">
-          <p>Start Planning</p>
-          <h3 id="consultation-funnel-title">Your consultation journey</h3>
-          <p>Follow the steps in order, or jump to the point that best matches where you are today.</p>
-        </div>
-        <ol className="consultation-steps">
-          <li><span>01</span><strong>See event work</strong><button type="button" onClick={() => onNavigate('events')}>Explore work</button></li>
-          <li><span>02</span><strong>Choose an event type</strong><button type="button" onClick={() => onNavigate('events')}>View event types</button></li>
-          <li><span>03</span><strong>Understand the process</strong><button type="button" onClick={() => onNavigate('process')}>See our process</button></li>
-          <li><span>04</span><strong>Review a relevant package</strong><button type="button" onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}>Compare packages</button></li>
-          <li><span>05</span><strong>Submit a planning brief or WhatsApp</strong><button type="button" onClick={() => onNavigate('contact')}>Send your brief</button></li>
-          <li><span>06</span><strong>Receive confirmation and next steps</strong><small>We respond within one business day.</small></li>
-        </ol>
       </section>
 
       <section className="section">
@@ -1152,7 +1142,7 @@ function HomePage({ onNavigate }) {
         <div className="primary-services-grid">
           {PRIMARY_SERVICES.map((service) => (
             <article key={service.title} className="primary-service-card">
-              <img src={service.image} alt={service.title} loading="lazy" />
+              <img src={themeImageFor(service.title)} alt={service.title} loading="lazy" />
               <div>
                 <h4>{service.title}</h4>
                 <p>{service.description}</p>
@@ -1178,9 +1168,9 @@ function HomePage({ onNavigate }) {
         </div>
 
         <div className="portfolio-grid">
-          {featuredProjects.map((item, index) => (
-            <article key={item.title} className={`portfolio-card zoom-on-hover fade-in-up ${index === 0 ? 'featured' : ''}`}>
-              <img src={item.image} alt={item.title} loading="lazy" />
+          {featuredProjects.map((item) => (
+            <article key={item.title} className="portfolio-card zoom-on-hover fade-in-up">
+              <img src={themeImageFor(item.title)} alt={item.title} loading="lazy" />
               <div className="portfolio-content">
                 <div className="portfolio-meta-row">
                   <p>{item.category}</p>
@@ -1192,7 +1182,7 @@ function HomePage({ onNavigate }) {
                 <p><strong>Design direction:</strong> {item.designDirection}</p>
                 <p><strong>Production considerations:</strong> {item.productionConsiderations}</p>
                 <button type="button" className="btn btn-primary" onClick={() => onNavigate('contact')}>
-                  Discuss This Concept
+                  Discuss a Similar Event
                 </button>
               </div>
             </article>
@@ -1241,14 +1231,6 @@ function HomePage({ onNavigate }) {
 
       <section className="section">
         <div className="story-proof-layout">
-          <article className="event-film-card" style={{ '--film-image': `url('${EVENT_FILM.image}')` }}>
-            <div className="event-film-overlay" />
-            <div className="event-film-content">
-              <p className="eyebrow">Style Reference</p>
-              <h4>{EVENT_FILM.title}</h4>
-            </div>
-          </article>
-
           <article className="story-capability-card">
             <p className="eyebrow">Planning Capability</p>
             <h4>One team from creative brief to on-ground delivery</h4>
@@ -1312,7 +1294,7 @@ function HomePage({ onNavigate }) {
 
 function AboutPage({ onNavigate }) {
   return (
-    <>
+    <div className="about-page">
       <section className="about-hero">
         <div className="about-hero-inner">
           <p className="about-hero-eyebrow">ABOUT US</p>
@@ -1323,7 +1305,7 @@ function AboutPage({ onNavigate }) {
       <section className="section">
         <div className="about-story-grid">
           <div className="about-story-image">
-            <img src="/about1.png" alt="Event setup" />
+            <img src={THEME_IMAGES.hero} alt="Bright ivory and gold event stage concept" />
           </div>
           <div className="about-story-content">
             <p className="eyebrow">Our Story</p>
@@ -1336,29 +1318,12 @@ function AboutPage({ onNavigate }) {
               We combine creative direction, project management and trusted vendor partnerships to deliver events
               that are beautiful, functional and true to the client's purpose.
             </p>
-            <div className="about-mini-stats">
-              {[['360°', 'Planning'], ['One', 'Team'], ['100%', 'Commitment']].map(([num, label]) => (
-                <div key={label} className="about-mini-stat">
-                  <strong>{num}</strong>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="section stats-grid">
-        {STATS.map((item) => (
-          <article key={item.label} className="stat-card">
-            <h4>{item.value}</h4>
-            <p>{item.label}</p>
-          </article>
-        ))}
-      </section>
-
       <section className="section mission-vision">
-        <img src="/about3.png" alt="Concert performance" />
+        <img src={THEME_IMAGES.talent} alt="Bright performance stage concept" />
         <div className="mission-vision-content">
           <article>
             <p className="eyebrow">Our Mission</p>
@@ -1407,7 +1372,7 @@ function AboutPage({ onNavigate }) {
           </article>
           <article className="value-card">
             <div className="value-icon">
-              <img src="/about2.png" alt="Integrity" style={{width:'64px',height:'64px',objectFit:'contain'}}/>
+              <span className="home-value-icon" aria-hidden="true"><LuxuryIcon name="heart" /></span>
             </div>
             <h4>Integrity</h4>
             <p>We value honesty and transparency.</p>
@@ -1431,7 +1396,7 @@ function AboutPage({ onNavigate }) {
           </article>
         </div>
       </section>
-    </>
+    </div>
   )
 }
 
@@ -1481,7 +1446,7 @@ function EventsPage({ onNavigate }) {
         <div className="events-submenu-grid">
           {EVENT_DETAIL_PAGES.map((item) => (
             <article key={item.key} className="events-submenu-card">
-              <img src={item.heroImage} alt={item.title} />
+              <img src={themeImageFor(item.title)} alt={item.title} />
               <div className="events-submenu-body">
                 <h4>
                   <span className="events-inline-icon" aria-hidden="true"><LuxuryIcon name={iconNameFromItem(item.icon, item.title)} /></span> {item.title}
@@ -1513,7 +1478,7 @@ function EventDetailPage({ event, onNavigate }) {
       <HeroBanner title={event.title} breadcrumb={`Home > Events > ${event.title}`} />
 
       <section className="section event-detail-intro">
-        <img src={event.heroImage} alt={event.title} />
+        <img src={themeImageFor(event.title)} alt={event.title} />
         <div>
           <p className="eyebrow">Event Specialization</p>
           <h3>{event.title}</h3>
@@ -1524,7 +1489,7 @@ function EventDetailPage({ event, onNavigate }) {
       {event.sections.map((section, index) => (
         <section key={section.heading} className="section event-detail-section">
           <article className={`event-detail-row ${index % 2 === 1 ? 'reverse' : ''}`}>
-            <img src={section.image} alt={section.heading} />
+            <img src={themeImageFor(`${event.title} ${section.heading}`)} alt={section.heading} />
             <div>
               <h4>{section.heading}</h4>
               <p>{section.text}</p>
@@ -1820,7 +1785,7 @@ function ContactPage() {
           <p>
             <strong>WhatsApp:</strong>{' '}
             <a href={CONTACT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              WhatsApp our team
+              +91 99403 18440
             </a>
           </p>
           <p><strong>Based in:</strong> Chennai, Tamil Nadu</p>
@@ -1867,7 +1832,7 @@ function Footer({ onNavigate }) {
           <h5>Contact Us</h5>
           <p><strong>Phone:</strong> <a href={CONTACT_PHONE_LINK}>{CONTACT_PHONE_DISPLAY}</a></p>
           <p><strong>Email:</strong> <a href={`mailto:${CONTACT_DISPLAY_EMAIL}`}>{CONTACT_DISPLAY_EMAIL}</a></p>
-          <p><strong>WhatsApp:</strong> <a href={CONTACT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">Message our team</a></p>
+          <p><strong>WhatsApp:</strong> <a href={CONTACT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">+91 99403 18440</a></p>
           <p><strong>Service area:</strong> Chennai, Tamil Nadu and pan-India by arrangement.</p>
           <button onClick={() => onNavigate('contact')} type="button" className="btn btn-secondary footer-btn">
             Get In Touch
@@ -1935,6 +1900,8 @@ function LegalPage({ type }) {
 function App() {
   const [page, setPage] = useState('home')
   const [eventsMenuOpen, setEventsMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showCurtainIntro, setShowCurtainIntro] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -1949,9 +1916,32 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const introSeen = window.localStorage.getItem('kalacharam-intro-seen')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!introSeen && !reduceMotion) {
+      setShowCurtainIntro(true)
+      const timer = window.setTimeout(() => {
+        setShowCurtainIntro(false)
+        window.localStorage.setItem('kalacharam-intro-seen', 'true')
+      }, 3600)
+
+      return () => window.clearTimeout(timer)
+    }
+
+    return undefined
+  }, [])
+
+  const dismissCurtainIntro = () => {
+    setShowCurtainIntro(false)
+    window.localStorage.setItem('kalacharam-intro-seen', 'true')
+  }
+
   const navigate = (nextPage) => {
     setPage(nextPage)
     setEventsMenuOpen(false)
+    setMobileMenuOpen(false)
 
     const servicePage = SERVICE_PAGE_MAP[nextPage]
 
@@ -1982,6 +1972,21 @@ function App() {
         <meta name="twitter:title" content="Kalacharam Events - Corporate Event Planning in Chennai" />
         <meta name="twitter:description" content="Professional event planning services in Chennai. Book your next corporate event, wedding, or cultural celebration with Kalacharam Events." />
       </Helmet>
+      {showCurtainIntro && (
+        <div className="curtain-intro" role="dialog" aria-label="Welcome to Kalacharam Events">
+          <div className="intro-stage-glow" aria-hidden="true" />
+          <div className="intro-brand">
+            <p>THE STAGE IS SET</p>
+            <h2 className="intro-title"><img src={logoUrl} alt="K" /><span>alacharam</span></h2>
+            <span>EVENTS • CHENNAI</span>
+          </div>
+          <div className="curtain curtain-left" aria-hidden="true" />
+          <div className="curtain curtain-right" aria-hidden="true" />
+          <div className="curtain-valance" aria-hidden="true" />
+          <div className="intro-footlights" aria-hidden="true" />
+          <button type="button" className="intro-skip" onClick={dismissCurtainIntro}>Enter site</button>
+        </div>
+      )}
       <div className="site-shell">
       <header className="site-header">
         <button type="button" className="brand" onClick={() => navigate('home')}>
@@ -1992,7 +1997,21 @@ function App() {
           </div>
         </button>
 
-        <nav className="site-nav" aria-label="Primary">
+        <div className="mobile-header-actions">
+          <button type="button" className="btn btn-primary mobile-plan-button" onClick={() => navigate('contact')}>Plan Event</button>
+          <button
+            type="button"
+            className="mobile-menu-button"
+            onClick={() => setMobileMenuOpen((current) => !current)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="primary-navigation"
+          >
+            <span aria-hidden="true">{mobileMenuOpen ? '×' : '☰'}</span>
+            <span className="sr-only">{mobileMenuOpen ? 'Close menu' : 'Open menu'}</span>
+          </button>
+        </div>
+
+        <nav id="primary-navigation" className={`site-nav ${mobileMenuOpen ? 'mobile-open' : ''}`} aria-label="Primary">
           {NAV_ITEMS.filter((item) => item.key === 'home').map((item) => (
             <button
               key={item.key}
